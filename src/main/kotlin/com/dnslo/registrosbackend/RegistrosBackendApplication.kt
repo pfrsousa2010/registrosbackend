@@ -1,14 +1,12 @@
 package com.dnslo.registrosbackend
 
-import com.dnslo.registrosbackend.model.StatusEnum
-import com.dnslo.registrosbackend.model.equipamento.*
 import com.dnslo.registrosbackend.model.processos.Registro
 import com.dnslo.registrosbackend.repository.EquipamentoRepository
+import org.modelmapper.ModelMapper
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import java.time.LocalDateTime
 
 
 @SpringBootApplication
@@ -16,33 +14,42 @@ class RegistrosBackendApplication {
     private val logger: org.slf4j.Logger? = org.slf4j.LoggerFactory.getLogger(Registro::class.java)
 
     @Bean
+    fun modelMapper(): ModelMapper? {
+        val modelMapper = ModelMapper()
+        modelMapper.configuration.isSkipNullEnabled = true
+        return modelMapper
+    }
+
+    @Bean
     fun runner(equipamentoRepository: EquipamentoRepository) = CommandLineRunner {
+         //registro
         /*val acoes = listOf(
-            AcaoRegistro(
-                descricao = "Esta é uma ação #1",
-                prazoAcao = LocalDateTime.now().plusMonths(2),
-                statusAcao = StatusEnum.EM_ANDAMENTO,
-                dataAcao = LocalDateTime.now()
-            ),
-            AcaoRegistro(
-                descricao = "Esta é uma ação #2",
-                prazoAcao = LocalDateTime.now().plusMonths(1),
-                statusAcao = StatusEnum.AGUARDANDO,
-                dataAcao = LocalDateTime.now().plusHours(1)
+                AcaoRegistro(
+                    descricao = "Esta é uma ação #1",
+                    prazoAcao = LocalDateTime.now().plusMonths(2),
+                    statusAcao = StatusEnum.EM_ANDAMENTO,
+                    dataAcao = LocalDateTime.now()
+                ),
+                AcaoRegistro(
+                    descricao = "Esta é uma ação #2",
+                    prazoAcao = LocalDateTime.now().plusMonths(1),
+                    statusAcao = StatusEnum.AGUARDANDO,
+                    dataAcao = LocalDateTime.now().plusHours(1)
 
+                )
             )
-        )
-        val registro = Registro(
-            fonteDemanda = "Relatorio xxx",
-            descricao = "Exemplo de um registro #1",
-            objetivo = "Adicionar este registro",
-            historicoAcaoRegistro = acoes,
-            statusRegistro = StatusEnum.AGUARDANDO,
-            prazoFinal = LocalDateTime.now().plusMonths(4)
-        )
-        registroRepository.insert(registro)*/
+            val registro = Registro(
+                fonteDemanda = "Relatorio xxx",
+                descricao = "Exemplo de um registro #1",
+                objetivo = "Adicionar este registro",
+                historicoAcaoRegistro = acoes,
+                statusRegistro = StatusEnum.AGUARDANDO,
+                prazoFinal = LocalDateTime.now().plusMonths(4)
+            )
+            registroRepository.insert(registro)*/
 
-        val calibracao = Calibracao(
+        //equipamento
+        /*val calibracao = Calibracao(
             datahora = LocalDateTime.now().minusDays(10),
             vencimento = LocalDateTime.now().plusMonths(1),
             responsavel = "Téc. Kimura",
@@ -140,7 +147,7 @@ class RegistrosBackendApplication {
         )
         equipamentoRepository.save(equipamento)
 
-        logger?.info("$equipamento")
+        logger?.info("$equipamento")*/
     }
 }
 
