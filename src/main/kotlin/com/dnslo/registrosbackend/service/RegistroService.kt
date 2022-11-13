@@ -1,6 +1,6 @@
 package com.dnslo.registrosbackend.service
 
-import com.dnslo.registrosbackend.model.Registro
+import com.dnslo.registrosbackend.model.processos.Registro
 import com.dnslo.registrosbackend.repository.RegistroRepository
 import org.springframework.stereotype.Service
 import java.util.Optional
