@@ -1,4 +1,4 @@
-package com.dnslo.registrosbackend.Config
+package com.dnslo.registrosbackend.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
