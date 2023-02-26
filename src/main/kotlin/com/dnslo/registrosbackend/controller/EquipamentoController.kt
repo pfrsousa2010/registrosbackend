@@ -58,7 +58,7 @@ class EquipamentoController(
     }
 
     @DeleteMapping("/deletar/{id}")
-    @ResponseStatus(NO_CONTENT)
+    @ResponseStatus(OK)
     fun excluir(@PathVariable("id") id: String) {
         equipamentoService.buscarPorId(id)
             .map { equipamentoService.removerPorId(it.id) }

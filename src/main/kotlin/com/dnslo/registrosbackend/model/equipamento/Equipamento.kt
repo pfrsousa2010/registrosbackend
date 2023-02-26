@@ -13,7 +13,7 @@ class Equipamento(
     var marcaModelo: String? = null,
     var numeroSerie: String? = null,
     var calibracao: Calibracao? = null,
-    var historicoAcoes: List<AcaoEquipamento>? = null,
+    var historicoAcoes: List<AcaoEquipamento>? = emptyList(),
     var statusOperacional: StatusOperacionalEnum
 
 ) {
