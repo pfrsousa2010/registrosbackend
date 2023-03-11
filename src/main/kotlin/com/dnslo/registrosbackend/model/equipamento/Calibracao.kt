@@ -1,10 +1,10 @@
 package com.dnslo.registrosbackend.model.equipamento
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
-class Calibracao(
-    var datahora: LocalDateTime,
-    var vencimento: LocalDateTime? = null,
+data class Calibracao(
+    var data: LocalDate,
+    var vencimento: LocalDate? = null,
     var responsavel: String? = null,
     var descricao: String? = null,
     var statusCalibracao: StatusCalibracaoEnum

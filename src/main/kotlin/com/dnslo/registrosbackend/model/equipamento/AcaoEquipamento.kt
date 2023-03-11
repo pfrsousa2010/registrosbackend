@@ -1,16 +1,20 @@
 package com.dnslo.registrosbackend.model.equipamento
 
 import com.dnslo.registrosbackend.model.StatusEnum
+import java.time.LocalDate
 import java.time.LocalDateTime
 
-class AcaoEquipamento(
+data class AcaoEquipamento(
     var descricao: String,
-    var inicio: LocalDateTime,
-    var fim: LocalDateTime,
-    var historicoLocalizacao: List<Localizacao>? = emptyList(),
+    var dataCriacao: LocalDateTime? = null,
+    var inicio: LocalDate,
+    var fim: LocalDate?,
+    var localizacao: String? = null,
     var status: StatusEnum,
     var responsavel: String? = null,
-    var prazo: LocalDateTime? = null,
+    var prazo: LocalDate?,
     var observacao: String? = null,
-    var historicoStatus: List<StatusAcao>? = emptyList()
-)
+    var historicoStatus: MutableList<StatusAcao>? = mutableListOf()
+) {
+
+}

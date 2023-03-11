@@ -5,15 +5,16 @@ import java.time.LocalDateTime
 import javax.persistence.Id
 
 @Document
-class Equipamento(
+data class Equipamento(
     var descricao: String,
-    var ultimaAtualizacao: LocalDateTime,
-    var ultimaLocalizacao: String,
+    var ultimaAtualizacao: LocalDateTime? = null,
+    var ultimaLocalizacao: String? = null,
     var numeroPatrimonio: String? = null,
     var marcaModelo: String? = null,
     var numeroSerie: String? = null,
     var calibracao: Calibracao? = null,
-    var historicoAcoes: List<AcaoEquipamento>? = emptyList(),
+    var historicoAcoes: MutableList<AcaoEquipamento>? = mutableListOf(),
+    var historicoLocalizacao: MutableList<Localizacao>? = mutableListOf(),
     var statusOperacional: StatusOperacionalEnum
 
 ) {
