@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @RestController
@@ -92,6 +93,20 @@ class EquipamentoController(
         return if (equipamentoService.equipamentoExiste(equipamentoId)) {
             ResponseEntity.ok(
                 equipamentoService.atualizarStatusAcao(equipamentoId, acaoIndex, novoStatus)
+            )
+        } else ResponseEntity.status(NOT_FOUND).body(null)
+    }
+
+    @PutMapping("atualizar/dataFinal/{id}")
+    @ResponseStatus(OK)
+    fun inserirDataFinalAcao(
+        @RequestBody @Validated data: LocalDate,
+        @PathVariable("id") equipamentoId: String,
+        @RequestParam(value = "acaoIndex") acaoIndex: Int
+    ): ResponseEntity<Equipamento> {
+        return if (equipamentoService.equipamentoExiste(equipamentoId)) {
+            ResponseEntity.ok(
+                equipamentoService.inserirDataFinalAcao(equipamentoId, acaoIndex, data)
             )
         } else ResponseEntity.status(NOT_FOUND).body(null)
     }

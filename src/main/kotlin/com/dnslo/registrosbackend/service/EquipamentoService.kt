@@ -4,6 +4,7 @@ import com.dnslo.registrosbackend.model.StatusEnum
 import com.dnslo.registrosbackend.model.equipamento.*
 import com.dnslo.registrosbackend.repository.EquipamentoRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.Optional
@@ -13,6 +14,8 @@ class EquipamentoService(
     private val equipamentoRepository: EquipamentoRepository
 ) {
     fun salvar(equipamento: Equipamento): Equipamento {
+        val now = LocalDateTime.now()
+        equipamento.ultimaAtualizacao = now
         return equipamentoRepository.save(equipamento)
     }
 
@@ -63,12 +66,18 @@ class EquipamentoService(
         return salvar(equipamentoCalibracao)
     }
 
+    fun inserirDataFinalAcao(equipamentoId: String, acaoIndex: Int, data: LocalDate): Equipamento? {
+        val equipamento = buscarPorId(equipamentoId).get()
+        equipamento.historicoAcoes?.get(acaoIndex)
+            .also { it?.fim = data }
+        return salvar(equipamento)
+    }
+
     private fun updateEquipAcao(
         equipamento: Equipamento,
         acaoEquipamento: AcaoEquipamento
     ): Equipamento {
         val now = LocalDateTime.now()
-        equipamento.historicoAcoes?.add(acaoEquipamento)
         acaoEquipamento.dataCriacao = now
         acaoEquipamento.localizacao?.let {
             Localizacao(
@@ -81,8 +90,9 @@ class EquipamentoService(
                 it
             )
         }
+        equipamento.historicoAcoes?.add(acaoEquipamento)
         if (equipamento.historicoAcoes?.size!! > 1) {
-            equipamento.historicoAcoes?.sortedBy { it.dataCriacao!!.toEpochSecond(ZoneOffset.UTC) }
+            equipamento.historicoAcoes?.sortByDescending { it.dataCriacao!!.toEpochSecond(ZoneOffset.UTC) }
         }
         salvar(equipamento)
         return equipamento
@@ -98,4 +108,6 @@ class EquipamentoService(
         acaoEquipamento.historicoStatus?.add(status)
         return acaoEquipamento
     }
+
+
 }
